@@ -1,4 +1,4 @@
-#include <stdio.h>
+#include <stdio.h>//Header file containing input/output operations
 
 // Function prototype declaration
 double arithmeticOperation(double firstNumber, double secondNumber, char Operator);
@@ -14,15 +14,20 @@ int main() {
     printf("Enter the second number: ");
     scanf("%lf", &secondNumber);
     printf("Enter the arithmetic operation (+, -, *, /, %): ");
-    scanf(" %c", &Operator); // Added space to skip any leading whitespace characters
+    scanf(" %c", &Operator); 
 
     // Call the arithmeticOperation function with the entered values
     Calculation = arithmeticOperation(firstNumber, secondNumber, Operator);
 
     // Display the entered numbers and the result of the operation
-    printf("The first number is %.2f\n", firstNumber);
-    printf("The second number is %.2f\n", secondNumber);
-    printf("The arithmetic operation is %.2f\n", Calculation);
+    if(Calculation == -1){
+        printf("An error occurred during the operation. Please check the operator and try again.\n");
+    }
+    else{
+        printf("The first number is %.2f\n", firstNumber);
+        printf("The second number is %.2f\n", secondNumber);
+        printf("The arithmetic operation is %.2f\n", Calculation);
+    }
 
     return 0;
 }
@@ -47,7 +52,7 @@ double arithmeticOperation(double firstNumber, double secondNumber, char Operato
                 result = firstNumber / secondNumber;
             } else {
                 printf("Error! Division by zero is not allowed.\n");
-                return 0; // Return 0 or an error value to indicate failure
+                return -1;
             }
             break;
         case '%': // Modulus
@@ -55,10 +60,12 @@ double arithmeticOperation(double firstNumber, double secondNumber, char Operato
                 result = (int)firstNumber % (int)secondNumber; // Casting to int for modulus operation
             } else {
                 printf("Error! Modulus operation by zero is not defined.\n");
+                return -1;
             }
             break;
         default: // Invalid operator
             printf("Invalid operator!\n");
+            return -1;
             break;
     }
 
